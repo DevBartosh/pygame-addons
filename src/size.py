@@ -1,4 +1,4 @@
 class Size:
-    def __init__(self, width, height) -> None:
+    def __init__(self, width: int, height: int) -> None:
         self.width = width
         self.height = height
