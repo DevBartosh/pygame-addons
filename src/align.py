@@ -1,6 +1,6 @@
 from enum import Enum, auto
 
-class Side(Enum):
+class Align(Enum):
     TOP_LEFT = auto()
     TOP_MID = auto()
     TOP_RIGHT = auto()
