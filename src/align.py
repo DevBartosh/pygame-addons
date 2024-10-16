@@ -2,11 +2,11 @@ from enum import Enum, auto
 
 class Align(Enum):
     TOP_LEFT = auto()
-    TOP_MID = auto()
+    TOP_CENTER = auto()
     TOP_RIGHT = auto()
-    MID_LEFT = auto()
-    MID = auto()
-    MID_RIGHT = auto()
+    CENTER_LEFT = auto()
+    CENTER = auto()
+    CENTER_RIGHT = auto()
     BOTTOM_LEFT = auto()
-    BOTTOM_MID = auto()
+    BOTTOM_CENTER = auto()
     BOTTOM_RIGHT = auto()
