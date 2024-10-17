@@ -1,6 +1,7 @@
 from enum import Enum, auto
 
 class Align(Enum):
+    NONE = auto()
     TOP_LEFT = auto()
     TOP_CENTER = auto()
     TOP_RIGHT = auto()

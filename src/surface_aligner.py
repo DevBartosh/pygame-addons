@@ -28,6 +28,7 @@ class SurfaceAligner:
         return (parent_height - child_height) // 2
     
     def get_align_pos(self, align: Align) -> tuple[int, int]:
+
         match align:
             case Align.TOP_LEFT | Align.CENTER_LEFT | Align.BOTTOM_LEFT:
                 x = 0
@@ -35,6 +36,9 @@ class SurfaceAligner:
                 x = self.get_centered_x()
             case Align.TOP_RIGHT | Align.CENTER_RIGHT | Align.BOTTOM_RIGHT:
                 x = self.parent_size.width - self.child_size.width
+            case _:
+                x = 0
+            
         
         match align:
             case Align.TOP_LEFT | Align.TOP_CENTER | Align.TOP_RIGHT:
@@ -43,6 +47,8 @@ class SurfaceAligner:
                 y = self.get_centered_y()
             case Align.BOTTOM_LEFT | Align.BOTTOM_CENTER | Align.BOTTOM_RIGHT:
                 y = self.parent_size.height - self.child_size.height
+            case _:
+                y = 0
         
         return (x, y)
     

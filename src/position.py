@@ -1,5 +1,6 @@
 from align import Align
 from surface_aligner import SurfaceAligner
+from exceptions.variable_not_implemented import VariableNotImplementedError
 
 class Position:
     def __init__(self,
@@ -7,7 +8,7 @@ class Position:
                  y: int = 0,
                  width_perc: float = 0.0,
                  height_perc: float = 0.0,
-                 align: Align = Align.TOP_LEFT,
+                 align: Align = Align.NONE,
                  surface_aligner: SurfaceAligner | None = None
                  ) -> None:
         self.x = x
@@ -17,6 +18,10 @@ class Position:
         self.align = align
         self.surface_aligner = surface_aligner
         self.generate_position()
+
+        aligner_used = width_perc != 0 or height_perc != 0 or align != Align.NONE
+        if aligner_used and surface_aligner == None:
+            raise VariableNotImplementedError("surface_aligner was not initialized for positioning with percents or alignment.")
     
     def update(self,
                 x: int | None = None,
