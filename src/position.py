@@ -4,13 +4,13 @@ from exceptions.variable_not_implemented import VariableNotImplementedError
 
 class Position:
     def __init__(self,
-                 x: int = 0,
-                 y: int = 0,
-                 width_perc: float = 0.0,
-                 height_perc: float = 0.0,
-                 align: Align = Align.NONE,
-                 surface_aligner: SurfaceAligner | None = None
-                 ) -> None:
+        x: int = 0,
+        y: int = 0,
+        width_perc: float = 0.0,
+        height_perc: float = 0.0,
+        align: Align = Align.NONE,
+        surface_aligner: SurfaceAligner | None = None
+    ) -> None:
         self.x = x
         self.y = y
         self.width_perc = width_perc
@@ -21,15 +21,17 @@ class Position:
 
         aligner_used = width_perc != 0 or height_perc != 0 or align != Align.NONE
         if aligner_used and surface_aligner == None:
-            raise VariableNotImplementedError("surface_aligner was not initialized for positioning with percents or alignment.")
+            raise VariableNotImplementedError(
+                "surface_aligner was not initialized for positioning with percents or alignment."
+            )
     
     def update(self,
-                x: int | None = None,
-                y: int | None = None,
-                width_perc: float | None = None,
-                height_perc: float | None = None,
-                align: Align | None = None
-                ) -> None:
+        x: int | None = None,
+        y: int | None = None,
+        width_perc: float | None = None,
+        height_perc: float | None = None,
+        align: Align | None = None
+    ) -> None:
         if x is not None:
             self.x = x
         if y is not None:
