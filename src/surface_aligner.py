@@ -2,6 +2,9 @@ from size import Size
 from align import Align
 
 class SurfaceAligner:
+    """
+    Class containing parent surface size and child surface size for centering purposes.
+    """
     def __init__(self,
                  parent_surface_size: Size,
                  child_surface_size: Size = Size(0, 0)

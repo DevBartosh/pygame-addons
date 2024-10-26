@@ -1,6 +1,9 @@
 from enum import Enum, auto
 
 class Align(Enum):
+    """
+    An enum holding alignment values for Position class.
+    """
     NONE = auto()
     TOP_LEFT = auto()
     TOP_CENTER = auto()
