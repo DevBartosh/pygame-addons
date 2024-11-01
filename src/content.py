@@ -21,7 +21,7 @@ class Content(Config):
     A widget doesn't need any of this to work.
     """
 
-    attributes_and_types: dict = {
+    allowed_attributes: dict = {
         "image": pygame.Surface,
         "image_size": Size,
         "image_position": Position,

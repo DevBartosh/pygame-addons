@@ -2,7 +2,7 @@ from typing import Self
 from copy import copy
 
 class Config:
-    attributes_and_types: dict = {}
+    allowed_attributes: dict = {}
     
     def __init__(self, **kwargs) -> None:
         self.modify(**kwargs)
@@ -10,9 +10,9 @@ class Config:
     def modify(self, attr_safe=True, **kwargs) -> None:
         for key, value in kwargs.items():
             if attr_safe:
-                if key not in self.attributes_and_types:
+                if key not in self.allowed_attributes:
                     raise AttributeError(f"Attribute {key} is not recognized.")
-                if not isinstance(value, self.attributes_and_types[key]):
+                if not isinstance(value, self.allowed_attributes[key]):
                     raise TypeError(f"Attribute {key} has a value of a wrong type.")
             
             setattr(self, key, value)
@@ -23,9 +23,9 @@ class Config:
         return new
     
     def __str__(self) -> str:
-        string = f"""
-        {self.__class__.__name__} (
-        {(",\n\t".join(list(f"{attr}: {self.__dict__[attr]}" for attr in self.__dict__)))}
-        )
-        """
+        string = f"{self.__class__.__name__} ("
+        for key, value in self.__dict__.items():
+            string += f"\n\t{key}: {value},"
+        string += "\n)"
+
         return string

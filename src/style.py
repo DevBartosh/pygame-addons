@@ -1,5 +1,3 @@
-from typing import Self
-
 import pygame
 
 from config import Config
@@ -18,7 +16,7 @@ class Style(Config):
     A widget needs only bg_color attribute to be seen.
     """
     
-    attributes_and_types: dict = {
+    allowed_attributes: dict = {
         "bg_color": pygame.Color,
         "border_color": pygame.Color,
         "border_width": int,
