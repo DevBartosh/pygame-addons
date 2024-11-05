@@ -1,6 +1,7 @@
 import pygame
 
 from config import Config
+from attribute import Attribute
 
 class Style(Config):
     """
@@ -15,11 +16,11 @@ class Style(Config):
 
     A widget needs only bg_color attribute to be seen.
     """
-    
-    allowed_attributes: dict = {
-        "bg_color": pygame.Color,
-        "border_color": pygame.Color,
-        "border_width": int,
-        "border_radius": int,
-        "bg_image": pygame.Surface
-    }
+
+    attributes: list[Attribute] = [
+        Attribute("bg_color", pygame.Color),
+        Attribute("border_color", pygame.Color),
+        Attribute("border_width", int, 0),
+        Attribute("border_radius", int, 0),
+        Attribute("bg_image", pygame.Surface, pygame.Surface((0, 0)))
+    ]

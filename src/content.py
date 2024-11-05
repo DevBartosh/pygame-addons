@@ -3,6 +3,7 @@ import pygame
 from config import Config
 from position import Position
 from size import Size
+from attribute import Attribute
 
 class Content(Config):
     """
@@ -21,13 +22,13 @@ class Content(Config):
     A widget doesn't need any of this to work.
     """
 
-    allowed_attributes: dict = {
-        "image": pygame.Surface,
-        "image_size": Size,
-        "image_position": Position,
-        "text": str,
-        "text_font": pygame.font.Font,
-        "text_color": pygame.Color,
-        "text_position": Position,
-        "secondary_text": str
-    }
+    attributes: list[Attribute] = [
+        Attribute("text", str, ""),
+        Attribute("text_font", pygame.font.Font),
+        Attribute("text_color", pygame.Color),
+        Attribute("text_position", Position),
+        Attribute("secondary_text", str, ""),
+        Attribute("image", pygame.Surface),
+        Attribute("image_size", Size),
+        Attribute("image_position", Position)
+    ]
