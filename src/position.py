@@ -31,7 +31,7 @@ class Position:
         self.generate_position()
 
         aligner_used = width_perc != 0 or height_perc != 0 or align != Align.NONE
-        if aligner_used and surface_aligner == None:
+        if aligner_used and surface_aligner is None:
             raise VariableNotImplementedError(
                 "surface_aligner was not initialized for positioning with percents or alignment."
             )
@@ -76,3 +76,6 @@ class Position:
 
     def get_y(self) -> int:
         return self.y_pos
+    
+    def get_tuple(self) -> tuple[int, int]:
+        return (self.x_pos, self.y_pos)
