@@ -8,10 +8,11 @@ class Position:
 
     This class has multiple ways of handling position.
     1. x, y - classic integer values.
-    2. width_perc, height_perc - these represent percents of parent surface size (most of the time it is window). *
-    3. align - represents basic alignment in parent surface. *
+    2. width_perc, height_perc - these represent percents of parent surface size (most of the time it is window). 1*
+    3. align - represents basic alignment in parent surface. 2*
 
-     * - marked parameters need surface aligner with both parent and child surface sizes to work
+     1* - parameter needs surface aligner with parent surface size.
+     2* - parameter needs surface aligner with both parent and child surface sizes.  
 
     """
     def __init__(self,
