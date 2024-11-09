@@ -6,9 +6,9 @@ class SurfaceAligner:
     Class containing parent surface size and child surface size for centering purposes.
     """
     def __init__(self,
-                 parent_surface_size: Size,
-                 child_surface_size: Size = Size(0, 0)
-                 ) -> None:
+        parent_surface_size: Size,
+        child_surface_size: Size = Size(0, 0)
+    ) -> None:
         self.parent_size = parent_surface_size
         self.child_size = child_surface_size
     
@@ -31,27 +31,34 @@ class SurfaceAligner:
         return (parent_height - child_height) // 2
     
     def get_align_pos(self, align: Align) -> tuple[int, int]:
-
         match align:
-            case Align.TOP_LEFT | Align.CENTER_LEFT | Align.BOTTOM_LEFT:
+            case Align.TOP_LEFT | Align.NONE:
                 x = 0
-            case Align.TOP_CENTER | Align.CENTER | Align.BOTTOM_CENTER:
+                y = 0
+            case Align.TOP_CENTER:
                 x = self.get_centered_x()
-            case Align.TOP_RIGHT | Align.CENTER_RIGHT | Align.BOTTOM_RIGHT:
+                y = 0
+            case Align.TOP_RIGHT:
                 x = self.parent_size.width - self.child_size.width
-            case _:
+                y = 0
+            case Align.CENTER_LEFT:
                 x = 0
-            
-        
-        match align:
-            case Align.TOP_LEFT | Align.TOP_CENTER | Align.TOP_RIGHT:
-                y = 0
-            case Align.CENTER_LEFT | Align.CENTER | Align.CENTER_RIGHT:
                 y = self.get_centered_y()
-            case Align.BOTTOM_LEFT | Align.BOTTOM_CENTER | Align.BOTTOM_RIGHT:
+            case Align.CENTER:
+                x = self.get_centered_x()
+                y = self.get_centered_y()
+            case Align.CENTER_RIGHT:
+                x = self.parent_size.width - self.child_size.width
+                y = self.get_centered_y()
+            case Align.BOTTOM_LEFT:
+                x = 0
                 y = self.parent_size.height - self.child_size.height
-            case _:
-                y = 0
+            case Align.BOTTOM_CENTER:
+                x = self.get_centered_x()
+                y = self.parent_size.height - self.child_size.height
+            case Align.BOTTOM_RIGHT:
+                x = self.parent_size.width - self.child_size.width
+                y = self.parent_size.height - self.child_size.height
         
         return (x, y)
     
