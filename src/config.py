@@ -10,7 +10,7 @@ class Config:
 
     While making a subclass, define `attributes` list to control possible attributes.
 
-    If you want to skip error checking, pass `attr_safe = False` to `modify()` (constructor) method.
+    If you want to skip error checking, pass `attr_safe = False` to `modify()` (or constructor) method.
     """
     attributes: list[Attribute]
     
@@ -18,15 +18,13 @@ class Config:
         self.modify(**kwargs)
 
     def modify(self, attr_safe=True, **kwargs) -> None:
-        attr_names = [attr.name for attr in self.attributes]
-
         if not attr_safe:
             for key, value in kwargs.items():
                 setattr(self, key, value)
             return
 
         for key in kwargs.keys():
-            if key not in attr_names:
+            if key not in [attr.name for attr in self.attributes]:
                 raise AttributeError(f"Attribute {key} is not recognized.")
         
         for attribute in self.attributes:
