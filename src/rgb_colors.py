@@ -1,0 +1,26 @@
+import pygame
+
+BLACK = pygame.Color(0, 0, 0)
+DARK_GRAY = pygame.Color(128, 128, 128)
+LIGHT_GRAY = pygame.Color(200, 200, 200)
+WHITE = pygame.Color(255, 255, 255)
+
+RED = pygame.Color(255, 0, 0)
+DARK_RED = pygame.Color(100, 0, 0)
+GREEN = pygame.Color(0, 255, 0)
+DARK_GREEN = pygame.Color(0, 100, 0)
+BLUE = pygame.Color(0, 0, 255)
+DARK_BLUE = pygame.Color(0, 0, 100)
+YELLOW = pygame.Color(255, 255, 0)
+DARK_YELLOW = pygame.Color(100, 100, 0)
+MAGENTA = pygame.Color(255, 0, 255)
+AQUA = pygame.Color(0, 255, 255)
+DARK_AQUA = pygame.Color(0, 100, 100)
+ORANGE = pygame.Color(255, 120, 0)
+PURPLE = pygame.Color(128, 0, 128)
+LIME = pygame.Color(109, 168, 50)
+BROWN = pygame.Color(120, 60, 0)
+DARK_BROWN = pygame.Color(75, 40, 0)
+PINK = pygame.Color(255, 120, 215)
+
+TRANSPARENT = pygame.Color(0, 0, 0, 0)
