@@ -11,8 +11,8 @@ class Position:
     2. width_perc, height_perc - these represent percents of parent surface size (most of the time it is window). 1*
     3. align - represents basic alignment in parent surface. 2*
 
-     1* - parameter needs surface aligner with parent surface size.
-     2* - parameter needs surface aligner with both parent and child surface sizes.  
+    1* - parameter needs surface aligner with parent surface size.
+    2* - parameter needs surface aligner with both parent and child surface sizes.  
 
     """
     def __init__(self,
