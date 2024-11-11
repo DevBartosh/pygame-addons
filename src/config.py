@@ -1,4 +1,4 @@
-from typing import Self
+from typing import Self, Any
 from copy import copy
 
 from attribute import Attribute
@@ -14,33 +14,40 @@ class Config:
     """
     attributes: list[Attribute]
     
-    def __init__(self, **kwargs) -> None:
-        self.modify(**kwargs)
+    def __init__(self, **kwargs: Any) -> None:
+        self.modify(default_if_not_given=True, **kwargs)
 
-    def modify(self, attr_safe=True, **kwargs) -> None:
-        if not attr_safe:
-            for key, value in kwargs.items():
-                setattr(self, key, value)
-            return
+    def modify(
+        self,
+        **kwargs: Any
+    ) -> None:
+        default_if_not_given = kwargs.pop("default_if_not_given", False)
 
         for key in kwargs.keys():
             if key not in [attr.name for attr in self.attributes]:
                 raise AttributeError(f"Attribute {key} is not recognized.")
-        
-        for attribute in self.attributes:
-            value = kwargs.get(attribute.name, attribute.default)
 
+        for attr in self.attributes:
+            if attr.name not in kwargs.keys() and default_if_not_given is False:
+                continue
+
+            value: Any = kwargs.get(attr.name, attr.default)
             if value is None:
                 raise VariableNotImplementedError(
-                    f"Attribute {attribute.name} was not passed for " \
-                    "config modification and does not have a default value."
+                    f"Attribute {attr.name} was not passed for " \
+                    f"config modification and does not have a default value."
                 )
-            if not isinstance(value, attribute.attr_type):
-                raise TypeError(f"Attribute {key} has a value of a wrong type.")
 
-            setattr(self, attribute.name, value)
+            if not isinstance(value, attr.attr_type):
+                raise TypeError(
+                    f"Attribute {attr.name} with value {value} " \
+                    f"should be of type {attr.attr_type}."
+                )
             
-    def get_modified(self, **kwargs) -> Self:
+            setattr(self, attr.name, value)
+            
+            
+    def get_modified(self, **kwargs: Any) -> Self:
         new = copy(self)
         new.modify(**kwargs)
         return new
