@@ -1,6 +1,4 @@
 import pygame
-import os
-print(os.getcwd())
 
 from configs.config import Config
 from configs.attribute import Attribute
