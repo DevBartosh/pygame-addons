@@ -1,5 +1,5 @@
-from size import Size
-from align import Align
+from geometry.size import Size
+from geometry.align import Align
 
 class SurfaceAligner:
     """

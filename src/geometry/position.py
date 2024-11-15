@@ -1,5 +1,5 @@
-from align import Align
-from surface_aligner import SurfaceAligner
+from geometry.align import Align
+from geometry.surface_aligner import SurfaceAligner
 from exceptions.variable_not_implemented import VariableNotImplementedError
 
 class Position:

@@ -1,7 +1,7 @@
 from typing import Self, Any
 from copy import copy
 
-from attribute import Attribute
+from configs.attribute import Attribute
 from exceptions.variable_not_implemented import VariableNotImplementedError
 
 class Config:

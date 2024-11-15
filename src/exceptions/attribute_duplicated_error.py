@@ -1,0 +1,2 @@
+class AttributeDuplicatedError:
+    pass

@@ -1,10 +1,10 @@
 import pygame
 pygame.font.init()
 
-from config import Config
-from position import Position
-from size import Size
-from attribute import Attribute
+from configs.config import Config
+from geometry.position import Position
+from geometry.size import Size
+from configs.attribute import Attribute
 from rgb_colors import BLACK
 
 class Content(Config):

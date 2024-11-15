@@ -1,7 +1,9 @@
 import pygame
+import os
+print(os.getcwd())
 
-from config import Config
-from attribute import Attribute
+from configs.config import Config
+from configs.attribute import Attribute
 from rgb_colors import TRANSPARENT
 
 class Style(Config):
