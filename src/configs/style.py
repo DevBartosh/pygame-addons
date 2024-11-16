@@ -2,7 +2,7 @@ import pygame
 
 from configs.config import Config
 from configs.attribute import Attribute
-from rgb_colors import TRANSPARENT
+from color.rgb_colors import TRANSPARENT
 
 class Style(Config):
     """
