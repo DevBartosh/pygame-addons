@@ -30,6 +30,16 @@ class SurfaceAligner:
         
         return (parent_height - child_height) // 2
     
+    def get_centered_pos(
+        self,
+        child_width_overwrite: int | None = None,
+        child_height_overwrite: int | None = None
+    ) -> tuple[int, int]:
+        return (
+            self.get_centered_x(child_width_overwrite),
+            self.get_centered_y(child_height_overwrite)
+        )
+    
     def get_align_pos(self, align: Align) -> tuple[int, int]:
         match align:
             case Align.TOP_LEFT | Align.NONE:
