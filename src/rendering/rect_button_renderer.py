@@ -39,6 +39,7 @@ class RectButtonRenderer(Renderer):
             button_rect,
             border_radius=style.border_radius
         )
+
         self.surface.blit(
             style.bg_image,
             (0, 0),
@@ -64,7 +65,6 @@ class RectButtonRenderer(Renderer):
                     text_surface.get_width(),
                     text_surface.get_height()
                 )
-            content.text_position.generate_position()
             self.surface.blit(
                 text_surface,
                 content.text_position.get_tuple(),
