@@ -37,13 +37,19 @@ class Position:
             )
 
     def get_x(self) -> int:
-        perc_x = int(self.width_perc * self.surface_aligner.parent_size.width)
-        align_x = self.surface_aligner.get_align_pos(self.align)[0]
+        perc_x = 0
+        align_x = 0
+        if self.surface_aligner is not None:
+            perc_x = int(self.width_perc * self.surface_aligner.parent_size.width)
+            align_x = self.surface_aligner.get_align_pos(self.align)[0]
         return self.x + perc_x + align_x
 
     def get_y(self) -> int:
-        perc_y = int(self.height_perc * self.surface_aligner.parent_size.height)
-        align_y = self.surface_aligner.get_align_pos(self.align)[1]
+        perc_y = 0
+        align_y = 0
+        if self.surface_aligner is not None:
+            perc_y = int(self.height_perc * self.surface_aligner.parent_size.height)
+            align_y = self.surface_aligner.get_align_pos(self.align)[1]
         return self.y + perc_y + align_y
     
     def get_tuple(self) -> tuple[int, int]:
