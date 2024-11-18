@@ -3,7 +3,6 @@ pygame.font.init()
 
 from configs.config import Config
 from geometry.position import Position
-from geometry.size import Size
 from configs.attribute import Attribute
 from color.rgb_colors import BLACK
 
