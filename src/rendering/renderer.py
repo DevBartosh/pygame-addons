@@ -1,4 +1,4 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 import pygame
 
@@ -16,6 +16,7 @@ class Renderer(ABC):
         self.current_content: Content | None = None
         self.surface: pygame.Surface
     
+    @abstractmethod
     def get_surface(
         self,
         size: Size,

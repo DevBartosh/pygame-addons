@@ -3,9 +3,9 @@ import pygame
 from configs.style import Style
 from configs.content import Content
 from geometry.size import Size
-from rendering.renderer import Renderer
+from rendering.button_renderer import ButtonRenderer
 
-class RectButtonRenderer(Renderer):
+class RectButtonRenderer(ButtonRenderer):
     def __init__(self) -> None:
         super().__init__()
 
@@ -15,13 +15,6 @@ class RectButtonRenderer(Renderer):
         style: Style,
         content: Content
     ) -> pygame.Surface:
-
-        if (
-            (self.current_size == size) and
-            (self.current_style == style) and
-            (self.current_content == content)
-        ):
-            return self.surface
         
         if self.current_size is None:
             self.current_size = size
@@ -40,17 +33,19 @@ class RectButtonRenderer(Renderer):
             border_radius=style.border_radius
         )
 
+        if style.border_width != 0:
+            pygame.draw.rect(
+                self.surface,
+                style.border_color,
+                button_rect,
+                style.border_width,
+                style.border_radius
+            )
+
         self.surface.blit(
             style.bg_image,
             (0, 0),
             button_rect
-        )
-        pygame.draw.rect(
-            self.surface,
-            style.border_color,
-            button_rect,
-            style.border_width,
-            style.border_radius
         )
 
         if content.text != "":
