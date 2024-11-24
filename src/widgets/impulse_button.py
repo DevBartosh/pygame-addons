@@ -1,17 +1,15 @@
 from collections.abc import Callable
 from typing import Self, TypeAlias
-from copy import copy
 
 import pygame
 
+from configs.content import Content
+from configs.style import Style
+from geometry.size import Size
+from geometry.position import Position
 from rendering.button_renderer import ButtonRenderer
 from widgets.button_state import ButtonState
 from widgets.base_button import BaseButton
-from geometry.size import Size
-from configs.style import Style
-from configs.content import Content
-from geometry.position import Position
-from color.rgb_colors import *
 
 class ImpulseButton(BaseButton):
     Callback: TypeAlias = Callable[[Self], None]
@@ -22,13 +20,14 @@ class ImpulseButton(BaseButton):
         size: Size,
         style: Style,
         content: Content,
-        renderer: ButtonRenderer, 
+        renderer: ButtonRenderer,
         on_press: Callback | None = None,
         on_release: Callback | None = None,
         on_hover: Callback | None = None,
         on_unhover: Callback | None = None,
         on_enable: Callback | None = None,
-        on_disable: Callback | None = None
+        on_disable: Callback | None = None,
+        on_rest: Callback | None = lambda button: button.set_default_surface()
     ) -> None:
         super().__init__(
             position,
@@ -41,7 +40,8 @@ class ImpulseButton(BaseButton):
             on_hover,
             on_unhover,
             on_enable,
-            on_disable
+            on_disable,
+            on_rest
         )
     
     def update(
@@ -76,10 +76,15 @@ class ImpulseButton(BaseButton):
         try:
             surface_mask.get_at(offset_pos)
         except IndexError:
-            if self.state == ButtonState.HOVER and self.on_unhover is not None:
-                self.on_unhover(self)
-            self.state = ButtonState.NONE
-            self.reset_surface()
+            if (
+                self.state == ButtonState.HOVER or
+                self.state == ButtonState.PRESS
+            ):
+                if self.on_unhover is not None:
+                    self.on_unhover(self)
+                elif self.on_rest is not None:
+                    self.on_rest(self)
+            self.state = ButtonState.REST
             return
 
         if not surface_mask.get_at(offset_pos):
@@ -100,8 +105,5 @@ class ImpulseButton(BaseButton):
             self.state = ButtonState.HOVER
             if self.on_hover is not None:
                 self.on_hover(self)
-        
-    def reset_surface(self):
-        self.size = copy(self.default_size)
-        self.style = copy(self.default_style)
-        self.content = copy(self.default_content)
+            elif self.on_rest is not None:
+                self.on_rest(self)

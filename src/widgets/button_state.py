@@ -1,7 +1,7 @@
 from enum import StrEnum, auto
 
 class ButtonState(StrEnum):
-    NONE = "NONE"
+    REST = "REST"
     PRESS = "PRESS"
     HOVER = "HOVER"
     DISABLE = "DISABLE"
