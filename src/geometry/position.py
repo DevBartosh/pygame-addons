@@ -21,19 +21,19 @@ class Position:
         width_perc: float = 0.0,
         height_perc: float = 0.0,
         align: Align = Align.NONE,
-        surface_aligner: SurfaceAligner | None = None
+        aligner: SurfaceAligner | None = None
     ) -> None:
         self.x = x
         self.y = y
         self.width_perc = width_perc
         self.height_perc = height_perc
         self.align = align
-        self.surface_aligner = surface_aligner
+        self.surface_aligner = aligner
 
         aligner_used = width_perc != 0 or height_perc != 0 or align != Align.NONE
-        if aligner_used and surface_aligner is None:
+        if aligner_used and aligner is None:
             raise VariableNotImplementedError(
-                "surface_aligner was not initialized for positioning with percents or alignment."
+                "surface aligner was not initialized for positioning with percents or alignment."
             )
 
     def get_x(self) -> int:
