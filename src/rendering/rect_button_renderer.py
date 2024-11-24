@@ -49,10 +49,10 @@ class RectButtonRenderer(ButtonRenderer):
         )
 
         if content.text != "":
-            text_surface: pygame.Surface = content.text_font.render(
+            text_surface: pygame.Surface = style.text_font.render(
                 content.text,
                 True,
-                content.text_color
+                style.text_color
             )
 
             if content.text_position.surface_aligner is not None:
