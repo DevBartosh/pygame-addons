@@ -1,3 +1,5 @@
+from copy import copy
+
 from geometry.align import Align
 from geometry.surface_aligner import SurfaceAligner
 from exceptions.variable_not_implemented import VariableNotImplementedError
@@ -28,12 +30,12 @@ class Position:
         self.width_perc = width_perc
         self.height_perc = height_perc
         self.align = align
-        self.surface_aligner = aligner
+        self.surface_aligner = copy(aligner)
 
         aligner_used = width_perc != 0 or height_perc != 0 or align != Align.NONE
-        if aligner_used and aligner is None:
+        if aligner_used and self.surface_aligner is None:
             raise VariableNotImplementedError(
-                "surface aligner was not initialized for positioning with percents or alignment."
+                "Surface aligner was not initialized for positioning with percents or alignment."
             )
 
     def get_x(self) -> int:
@@ -53,4 +55,4 @@ class Position:
         return self.y + perc_y + align_y
     
     def get_tuple(self) -> tuple[int, int]:
-        return (self.get_x(), self.get_y())
+        return self.get_x(), self.get_y()
