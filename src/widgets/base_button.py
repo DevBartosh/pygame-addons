@@ -35,13 +35,13 @@ class BaseButton(ABC):
         if self.position.surface_aligner is not None:
             self.position.surface_aligner.child_size = size
         
-        self.default_size = size
-        self.default_style = style
-        self.default_content = content
+        self.rest_size = size
+        self.rest_style = style
+        self.rest_content = content
         
-        self.size = copy(self.default_size)
-        self.style = copy(self.default_style)
-        self.content = copy(self.default_content)
+        self.size = copy(self.rest_size)
+        self.style = copy(self.rest_style)
+        self.content = copy(self.rest_content)
         
         self.renderer = renderer
 
@@ -53,6 +53,7 @@ class BaseButton(ABC):
         self.on_disable = on_disable
         self.on_rest = on_rest
         self.state: ButtonState = ButtonState.REST
+        self.disabled = False
 
         self.surface: pygame.Surface = renderer.get_surface(
             self.size,
@@ -68,23 +69,23 @@ class BaseButton(ABC):
     ) -> None:
         pass
 
-    def set_default_surface(self):
-        self.size = copy(self.default_size)
-        self.style = copy(self.default_style)
-        self.content = copy(self.default_content)
+    def set_rest_surface(self) -> None:
+        self.size = copy(self.rest_size)
+        self.style = copy(self.rest_style)
+        self.content = copy(self.rest_content)
 
     @property
-    def enabled(self) -> bool:
-        return self.state != ButtonState.DISABLE
+    def disabled(self) -> bool:
+        return self.state == ButtonState.DISABLE
     
-    @enabled.setter
-    def enabled(self, value: bool):
+    @disabled.setter
+    def disabled(self, value: bool):
         if value:
-            self.state = ButtonState.REST
-            if self.on_enable is not None:
-                self.on_enable(self)
-            self.set_default_surface()
-        else:
             self.state = ButtonState.DISABLE
             if self.on_disable is not None:
                 self.on_disable(self)
+        else:
+            self.state = ButtonState.REST
+            if self.on_enable is not None:
+                self.on_enable(self)
+            self.on_rest(self)

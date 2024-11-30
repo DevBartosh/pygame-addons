@@ -27,7 +27,7 @@ class ImpulseButton(BaseButton):
         on_unhover: Callback | None = None,
         on_enable: Callback | None = None,
         on_disable: Callback | None = None,
-        on_rest: Callback | None = lambda button: button.set_default_surface()
+        on_rest: Callback | None = lambda button: button.set_rest_surface()
     ) -> None:
         super().__init__(
             position,
@@ -70,7 +70,7 @@ class ImpulseButton(BaseButton):
             mouse_pos[1] - self.position.get_y()
         )
 
-        if not self.enabled:
+        if self.disabled:
             return
         
         try:
@@ -80,10 +80,9 @@ class ImpulseButton(BaseButton):
                 self.state == ButtonState.HOVER or
                 self.state == ButtonState.PRESS
             ):
+                self.on_rest(self)
                 if self.on_unhover is not None:
                     self.on_unhover(self)
-                elif self.on_rest is not None:
-                    self.on_rest(self)
             self.state = ButtonState.REST
             return
 
@@ -105,5 +104,5 @@ class ImpulseButton(BaseButton):
             self.state = ButtonState.HOVER
             if self.on_hover is not None:
                 self.on_hover(self)
-            elif self.on_rest is not None:
+            else:
                 self.on_rest(self)
