@@ -15,13 +15,9 @@ class RectButtonRenderer(ButtonRenderer):
         style: Style,
         content: Content
     ) -> pygame.Surface:
-        
-        if self.current_size is None:
-            self.current_size = size
-        if self.current_style is None:
-            self.current_style = style
-        if self.current_content is None:
-            self.current_content = content
+        self.current_size = size
+        self.current_style = style
+        self.current_content = content
 
         self.surface = pygame.Surface(size.get_tuple(), pygame.SRCALPHA)
         button_rect = pygame.Rect((0, 0), size.get_tuple())
@@ -54,7 +50,6 @@ class RectButtonRenderer(ButtonRenderer):
                 True,
                 style.text_color
             )
-
             if content.text_position.surface_aligner is not None:
                 content.text_position.surface_aligner.child_size = Size(
                     text_surface.get_width(),
