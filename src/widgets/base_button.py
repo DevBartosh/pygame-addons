@@ -31,10 +31,6 @@ class BaseButton(ABC):
         on_disable: Callback | None = None,
         on_rest: Callback | None = None
     ) -> None:
-        self.position = position
-        if self.position.surface_aligner is not None:
-            self.position.surface_aligner.child_size = size
-        
         self.rest_size = size
         self.rest_style = style
         self.rest_content = content
@@ -42,6 +38,10 @@ class BaseButton(ABC):
         self.size = copy(self.rest_size)
         self.style = copy(self.rest_style)
         self.content = copy(self.rest_content)
+
+        self.position = position
+        if self.position.surface_aligner is not None:
+            self.position.surface_aligner.child_size = self.size
         
         self.renderer = renderer
 
