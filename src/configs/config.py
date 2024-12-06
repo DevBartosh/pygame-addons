@@ -59,3 +59,10 @@ class Config:
         string += "\n)"
 
         return string
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, self.__class__):
+            return False
+        if self.__dict__ != other.__dict__:
+            return False
+        return True
