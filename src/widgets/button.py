@@ -11,7 +11,7 @@ from rendering.button_renderer import ButtonRenderer
 from widgets.button_state import ButtonState
 from widgets.base_button import BaseButton
 
-class ImpulseButton(BaseButton):
+class Button(BaseButton):
     Callback: TypeAlias = Callable[[Self], None]
 
     def __init__(
@@ -27,7 +27,10 @@ class ImpulseButton(BaseButton):
         on_unhover: Callback | None = None,
         on_enable: Callback | None = None,
         on_disable: Callback | None = None,
-        on_rest: Callback | None = lambda button: button.set_rest_surface()
+        on_rest: Callback | None = lambda button: button.set_rest_surface(),
+        spam_on_hover: bool = False,
+        spam_on_press: bool = False,
+        spam_on_rest: bool = False
     ) -> None:
         super().__init__(
             position,
@@ -43,6 +46,9 @@ class ImpulseButton(BaseButton):
             on_disable,
             on_rest
         )
+        self.spam_on_hover = spam_on_hover
+        self.spam_on_press = spam_on_press
+        self.spam_on_rest = spam_on_rest
     
     def update(
         self,
@@ -78,7 +84,8 @@ class ImpulseButton(BaseButton):
         except IndexError:
             if (
                 self.state == ButtonState.HOVER or
-                self.state == ButtonState.PRESS
+                self.state == ButtonState.PRESS or
+                self.spam_on_rest
             ):
                 self.on_rest(self)
                 if self.on_unhover is not None:
@@ -90,7 +97,7 @@ class ImpulseButton(BaseButton):
             return
 
         if mouse_down:
-            if self.state != ButtonState.PRESS:
+            if self.state != ButtonState.PRESS or self.spam_on_press:
                 self.state = ButtonState.PRESS
                 if self.on_press is not None:
                     self.on_press(self)
@@ -100,7 +107,7 @@ class ImpulseButton(BaseButton):
             if self.on_release is not None:
                 self.on_release(self)
         
-        if self.state != ButtonState.HOVER:
+        if self.state != ButtonState.HOVER or self.spam_on_hover:
             self.state = ButtonState.HOVER
             if self.on_hover is not None:
                 self.on_hover(self)
