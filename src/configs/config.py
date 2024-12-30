@@ -9,8 +9,6 @@ class Config:
     Base class for configurations like `Style` and `Content`.
 
     While making a subclass, define `attributes` list to control possible attributes.
-
-    If you want to skip error checking, pass `attr_safe = False` to `modify()` (or constructor) method.
     """
     attributes: list[Attribute]
     
@@ -41,7 +39,7 @@ class Config:
             if not isinstance(value, attr.attr_type):
                 raise TypeError(
                     f"Attribute {attr.name} with value {value} " \
-                    f"should be of type {attr.attr_type}."
+                    f"should be of type {attr.attr_type.__name__}."
                 )
             
             setattr(self, attr.name, value)

@@ -3,11 +3,13 @@ import pygame
 from configs.style import Style
 from configs.content import Content
 from geometry.size import Size
-from rendering.button_renderer import ButtonRenderer
+from rendering.shape_renderer import ShapeRenderer
+from rendering.text_renderer import TextRenderer
 
-class RectButtonRenderer(ButtonRenderer):
+class RectangleRenderer(ShapeRenderer):
     def __init__(self) -> None:
         super().__init__()
+        self.text_renderer = TextRenderer()
 
     def get_surface(
         self,
@@ -15,15 +17,35 @@ class RectButtonRenderer(ButtonRenderer):
         style: Style,
         content: Content
     ) -> pygame.Surface:
-        self.current_size = size
-        self.current_style = style
-        self.current_content = content
+        """
+        TODO:
+        The problem with this is that content and style have Surface objects that cannot be easily compared like Size object.
+        I have solved this problem in TextRenderer, because the attributes there are simple literals like strings and ints
 
-        self.surface = pygame.Surface(size.get_tuple(), pygame.SRCALPHA)
+        if (
+            self.size == size and
+            self.style == style and
+            self.content == content and
+            self.surface is not None
+        ):
+            return self.surface
+        else:
+            print("Size: " + str(self.size == size))
+            print("Style: " + str(self.style == style))
+            print("Content: " + str(self.content == content))
+            self.size = size
+            self.style = style
+            self.content = content
+        """
+        self.size = size
+        self.style = style
+        self.content = content
+
+        surface = pygame.Surface(size.get_tuple(), pygame.SRCALPHA)
         button_rect = pygame.Rect((0, 0), size.get_tuple())
 
         pygame.draw.rect(
-            self.surface,
+            surface,
             style.bg_color,
             button_rect,
             border_radius=style.border_radius
@@ -31,31 +53,31 @@ class RectButtonRenderer(ButtonRenderer):
 
         if style.border_width != 0:
             pygame.draw.rect(
-                self.surface,
+                surface,
                 style.border_color,
                 button_rect,
                 style.border_width,
                 style.border_radius
             )
-
-        self.surface.blit(
-            style.bg_image,
-            (0, 0),
-            button_rect
-        )
+        if style.bg_image != pygame.Surface((0, 0)):
+            surface.blit(
+                style.bg_image,
+                (0, 0),
+                button_rect
+            )
 
         if content.text != "":
-            text_surface: pygame.Surface = style.text_font.render(
+            text_surface: pygame.Surface = self.text_renderer.render_text(
                 content.text,
-                True,
-                style.text_color
+                style.text_format
             )
+            
             if content.text_position.surface_aligner is not None:
                 content.text_position.surface_aligner.child_size = Size(
                     text_surface.get_width(),
                     text_surface.get_height()
                 )
-            self.surface.blit(
+            surface.blit(
                 text_surface,
                 content.text_position.get_tuple(),
                 button_rect
@@ -67,12 +89,13 @@ class RectButtonRenderer(ButtonRenderer):
                     content.image.get_width(),
                     content.image.get_height()
                 )
-            self.surface.blit(
+            surface.blit(
                 content.image,
                 content.image_position.get_tuple(),
                 button_rect
             )
-        
+
+        self.surface = surface
         return self.surface
 
     

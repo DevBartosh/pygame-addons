@@ -6,14 +6,14 @@ from geometry.size import Size
 from configs.style import Style
 from configs.content import Content
 
-class Renderer(ABC):
+class ShapeRenderer(ABC):
     """
     Base class for widget renderers.
     """
     def __init__(self) -> None:
-        self.current_style: Style | None = None
-        self.current_size: Size | None = None
-        self.current_content: Content | None = None
+        self.style: Style | None = None
+        self.size: Size | None = None
+        self.content: Content | None = None
         self.surface: pygame.Surface
     
     @abstractmethod

@@ -9,7 +9,7 @@ from configs.content import Content
 from configs.style import Style
 from geometry.position import Position
 from geometry.size import Size
-from rendering.button_renderer import ButtonRenderer
+from rendering.shape_renderer import ShapeRenderer
 from widgets.button_state import ButtonState
 
 
@@ -22,7 +22,7 @@ class BaseButton(ABC):
         size: Size,
         style: Style,
         content: Content,
-        renderer: ButtonRenderer,
+        renderer: ShapeRenderer,
         on_press: Callback | None = None,
         on_release: Callback | None = None,
         on_hover: Callback | None = None,

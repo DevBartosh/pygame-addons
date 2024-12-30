@@ -7,7 +7,7 @@ from configs.content import Content
 from configs.style import Style
 from geometry.size import Size
 from geometry.position import Position
-from rendering.button_renderer import ButtonRenderer
+from rendering.shape_renderer import ShapeRenderer
 from widgets.button_state import ButtonState
 from widgets.base_button import BaseButton
 
@@ -20,7 +20,7 @@ class Button(BaseButton):
         size: Size,
         style: Style,
         content: Content,
-        renderer: ButtonRenderer,
+        renderer: ShapeRenderer,
         on_press: Callback | None = None,
         on_release: Callback | None = None,
         on_hover: Callback | None = None,
@@ -55,7 +55,8 @@ class Button(BaseButton):
         parent_surface: pygame.Surface,
         mouse_pos: tuple[int, int] | None = None
     ) -> None:
-        mouse_pos = pygame.mouse.get_pos()
+        if mouse_pos is None:
+            mouse_pos = pygame.mouse.get_pos()
         mouse_down = pygame.mouse.get_pressed()[0]
 
         self.surface = self.renderer.get_surface(
