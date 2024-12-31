@@ -3,9 +3,9 @@ from enum import Enum, auto
 import pygame
 pygame.font.init()
 
-from configs.attribute import Attribute
-from configs.config import Config
-from color.rgb_colors import BLACK
+from .attribute import Attribute
+from .config import Config
+from ..color.rgb_colors import BLACK
 
 class Justify(Enum):
     LEFT = auto()

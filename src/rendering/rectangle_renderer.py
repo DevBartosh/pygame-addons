@@ -1,10 +1,10 @@
 import pygame
 
-from configs.style import Style
-from configs.content import Content
-from geometry.size import Size
-from rendering.shape_renderer import ShapeRenderer
-from rendering.text_renderer import TextRenderer
+from ..configs.style import Style
+from ..configs.content import Content
+from ..geometry.size import Size
+from .shape_renderer import ShapeRenderer
+from .text_renderer import TextRenderer
 
 class RectangleRenderer(ShapeRenderer):
     def __init__(self) -> None:

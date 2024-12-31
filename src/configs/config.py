@@ -1,8 +1,8 @@
 from typing import Self, Any
 from copy import copy
 
-from configs.attribute import Attribute
-from exceptions.variable_not_implemented import VariableNotImplementedError
+from .attribute import Attribute
+from ..exceptions.variable_not_implemented import VariableNotImplementedError
 
 class Config:
     """

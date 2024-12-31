@@ -1,6 +1,6 @@
 import pygame
 pygame.font.init()
-from configs.text_format import TextFormat
+from ..configs.text_format import TextFormat
 
 class FontUtils:
     @staticmethod

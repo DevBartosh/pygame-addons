@@ -3,13 +3,13 @@ from typing import Self, TypeAlias
 
 import pygame
 
-from configs.content import Content
-from configs.style import Style
-from geometry.size import Size
-from geometry.position import Position
-from rendering.shape_renderer import ShapeRenderer
-from widgets.button_state import ButtonState
-from widgets.base_button import BaseButton
+from ..configs.content import Content
+from ..configs.style import Style
+from ..geometry.size import Size
+from ..geometry.position import Position
+from ..rendering.shape_renderer import ShapeRenderer
+from .button_state import ButtonState
+from .base_button import BaseButton
 
 class Button(BaseButton):
     Callback: TypeAlias = Callable[[Self], None]

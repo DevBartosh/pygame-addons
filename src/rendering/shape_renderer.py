@@ -2,9 +2,9 @@ from abc import ABC, abstractmethod
 
 import pygame
 
-from geometry.size import Size
-from configs.style import Style
-from configs.content import Content
+from ..geometry.size import Size
+from ..configs.style import Style
+from ..configs.content import Content
 
 class ShapeRenderer(ABC):
     """

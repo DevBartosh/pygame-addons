@@ -1,9 +1,9 @@
 import pygame
 pygame.font.init()
 
-from configs.config import Config
-from geometry.position import Position
-from configs.attribute import Attribute
+from .config import Config
+from ..geometry.position import Position
+from .attribute import Attribute
 
 class Content(Config):
     """
