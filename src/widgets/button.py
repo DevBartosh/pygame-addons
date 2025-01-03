@@ -1,6 +1,3 @@
-from collections.abc import Callable
-from typing import Self, TypeAlias
-
 import pygame
 
 from ..configs.content import Content
@@ -12,8 +9,6 @@ from .button_state import ButtonState
 from .base_button import BaseButton
 
 class Button(BaseButton):
-    Callback: TypeAlias = Callable[[Self], None]
-
     def __init__(
         self,
         position: Position,
@@ -21,13 +16,13 @@ class Button(BaseButton):
         style: Style,
         content: Content,
         renderer: ShapeRenderer,
-        on_press: Callback | None = None,
-        on_release: Callback | None = None,
-        on_hover: Callback | None = None,
-        on_unhover: Callback | None = None,
-        on_enable: Callback | None = None,
-        on_disable: Callback | None = None,
-        on_rest: Callback | None = lambda button: button.set_rest_surface(),
+        on_press: BaseButton.Callback | None = None,
+        on_release: BaseButton.Callback | None = None,
+        on_hover: BaseButton.Callback | None = None,
+        on_unhover: BaseButton.Callback | None = None,
+        on_enable: BaseButton.Callback | None = None,
+        on_disable: BaseButton.Callback | None = None,
+        on_rest: BaseButton.Callback = lambda button: button.set_rest_surface(),
         spam_on_hover: bool = False,
         spam_on_press: bool = False,
         spam_on_rest: bool = False

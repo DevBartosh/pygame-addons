@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from collections.abc import Callable
 from copy import copy
-from typing import Self, TypeAlias
+from typing import TypeAlias
 
 import pygame
 
@@ -14,7 +14,7 @@ from .button_state import ButtonState
 
 
 class BaseButton(ABC):
-    Callback: TypeAlias = Callable[[Self], None]
+    Callback: TypeAlias = Callable[["BaseButton"], None]
 
     def __init__(
         self,
@@ -29,7 +29,7 @@ class BaseButton(ABC):
         on_unhover: Callback | None = None,
         on_enable: Callback | None = None,
         on_disable: Callback | None = None,
-        on_rest: Callback | None = None
+        on_rest: Callback = lambda button: button.set_rest_surface()
     ) -> None:
         self.rest_size = size
         self.rest_style = style
