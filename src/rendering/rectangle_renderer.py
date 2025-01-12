@@ -2,12 +2,10 @@ from copy import copy
 
 import pygame
 
-from ..configs.style import Style
-from ..configs.content import Content
-from ..geometry.size import Size
-from .shape_renderer import ShapeRenderer
-from .text_renderer import TextRenderer
-from ..utils.surface_utils import SurfaceUtils
+from . import ShapeRenderer, TextRenderer
+from ..configs import Style, Content
+from ..geometry import Size
+from ..utils import SurfaceUtils
 
 class RectangleRenderer(ShapeRenderer):
     def __init__(self) -> None:

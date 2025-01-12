@@ -1,8 +1,7 @@
 from copy import copy
 
-from .align import Align
-from .surface_aligner import SurfaceAligner
-from ..exceptions.variable_not_implemented import VariableNotImplementedError
+from . import Align, SurfaceAligner
+from ..exceptions import VariableNotImplementedError
 
 class Position:
     """

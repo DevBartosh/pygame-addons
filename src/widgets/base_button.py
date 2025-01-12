@@ -5,12 +5,10 @@ from typing import TypeAlias
 
 import pygame
 
-from ..configs.content import Content
-from ..configs.style import Style
-from ..geometry.position import Position
-from ..geometry.size import Size
-from ..rendering.shape_renderer import ShapeRenderer
-from .button_state import ButtonState
+from . import ButtonState
+from ..configs import Style, Content
+from ..geometry import Position, Size
+from ..rendering import ShapeRenderer
 
 
 class BaseButton(ABC):

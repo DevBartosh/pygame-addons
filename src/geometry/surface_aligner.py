@@ -1,5 +1,4 @@
-from .size import Size
-from .align import Align
+from . import Size, Align
 
 class SurfaceAligner:
     """

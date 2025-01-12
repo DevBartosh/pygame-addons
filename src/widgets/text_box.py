@@ -1,10 +1,8 @@
 import pygame
 
-from ..configs.content import Content
-from ..configs.style import Style
-from ..geometry.size import Size
-from ..geometry.position import Position
-from ..rendering.shape_renderer import ShapeRenderer
+from ..configs import Style, Content
+from ..geometry import Size, Position
+from ..rendering import ShapeRenderer
 
 class TextBox:
     def __init__(

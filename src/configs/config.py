@@ -4,9 +4,9 @@ from copy import copy
 
 import pygame
 
-from .attribute import Attribute
-from ..exceptions.variable_not_implemented import VariableNotImplementedError
-from ..utils.surface_utils import SurfaceUtils
+from . import Attribute
+from ..exceptions import VariableNotImplementedError
+from ..utils import SurfaceUtils
 
 class Config:
     """

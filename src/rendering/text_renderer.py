@@ -2,11 +2,9 @@ from copy import copy
 
 import pygame
 
-from ..utils.font_utils import FontUtils
-from ..configs.text_format import TextFormat, Justify
-from ..geometry.surface_aligner import SurfaceAligner
-from ..geometry.size import Size
-from ..geometry.align import Align
+from ..utils import FontUtils
+from ..configs import TextFormat, Justify
+from ..geometry import SurfaceAligner, Size, Align
 
 class TextRenderer:
     DEFAULT_TEXT_FORMAT = TextFormat(name="calibri", size=20)

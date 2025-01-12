@@ -1,9 +1,7 @@
 import pygame
 
-from .config import Config
-from .attribute import Attribute
+from . import Attribute, Config, TextFormat
 from ..color.rgb_colors import TRANSPARENT
-from .text_format import TextFormat
 
 class Style(Config):
     """

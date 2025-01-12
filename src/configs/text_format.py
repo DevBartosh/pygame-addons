@@ -3,8 +3,7 @@ from enum import Enum, auto
 import pygame
 pygame.font.init()
 
-from .attribute import Attribute
-from .config import Config
+from . import Attribute, Config
 from ..color.rgb_colors import BLACK
 
 class Justify(Enum):
