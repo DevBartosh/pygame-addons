@@ -50,7 +50,7 @@ class RectangleRenderer(ShapeRenderer):
                 style.border_width,
                 style.border_radius
             )
-        if SurfaceUtils.surfaces_equal(style.bg_image, pygame.Surface((0, 0))):
+        if not SurfaceUtils.surfaces_equal(style.bg_image, pygame.Surface((0, 0))):
             surface.blit(
                 style.bg_image,
                 (0, 0),
@@ -74,7 +74,7 @@ class RectangleRenderer(ShapeRenderer):
                 button_rect
             )
         
-        if SurfaceUtils.surfaces_equal(content.image, pygame.Surface((0, 0))):
+        if not SurfaceUtils.surfaces_equal(content.image, pygame.Surface((0, 0))):
             if content.image_position.surface_aligner is not None:
                 content.image_position.surface_aligner.child_size = Size(
                     content.image.get_width(),
