@@ -1,8 +1,12 @@
 from typing import Self, Any
+from collections.abc import Callable
 from copy import copy
+
+import pygame
 
 from .attribute import Attribute
 from ..exceptions.variable_not_implemented import VariableNotImplementedError
+from ..utils.surface_utils import SurfaceUtils
 
 class Config:
     """
@@ -44,7 +48,6 @@ class Config:
             
             setattr(self, attr.name, value)
             
-            
     def get_modified(self, **kwargs: Any) -> Self:
         new = copy(self)
         new.modify(**kwargs)
@@ -61,6 +64,20 @@ class Config:
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, self.__class__):
             return False
-        if self.__dict__ != other.__dict__:
+        if self.__dict__.keys() != other.__dict__.keys():
             return False
+        
+        for key in self.__dict__.keys():
+            comparing_func: Callable[[Any, Any], bool] = lambda x, y: x == y
+            self_value = self.__dict__[key]
+            other_value = other.__dict__[key]
+            if not isinstance(other_value, type(self_value)):
+                return False
+            
+            if isinstance(self_value, pygame.Surface):
+                comparing_func = SurfaceUtils.surfaces_equal
+            
+            if not comparing_func(self_value, other_value):
+                return False
+            
         return True

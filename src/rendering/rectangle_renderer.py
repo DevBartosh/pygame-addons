@@ -1,3 +1,5 @@
+from copy import copy
+
 import pygame
 
 from ..configs.style import Style
@@ -5,6 +7,7 @@ from ..configs.content import Content
 from ..geometry.size import Size
 from .shape_renderer import ShapeRenderer
 from .text_renderer import TextRenderer
+from ..utils.surface_utils import SurfaceUtils
 
 class RectangleRenderer(ShapeRenderer):
     def __init__(self) -> None:
@@ -17,11 +20,6 @@ class RectangleRenderer(ShapeRenderer):
         style: Style,
         content: Content
     ) -> pygame.Surface:
-        """
-        TODO:
-        The problem with this is that content and style have Surface objects that cannot be easily compared like Size object.
-        I have solved this problem in TextRenderer, because the attributes there are simple literals like strings and ints
-
         if (
             self.size == size and
             self.style == style and
@@ -29,17 +27,10 @@ class RectangleRenderer(ShapeRenderer):
             self.surface is not None
         ):
             return self.surface
-        else:
-            print("Size: " + str(self.size == size))
-            print("Style: " + str(self.style == style))
-            print("Content: " + str(self.content == content))
-            self.size = size
-            self.style = style
-            self.content = content
-        """
-        self.size = size
-        self.style = style
-        self.content = content
+
+        self.size = copy(size)
+        self.style = copy(style)
+        self.content = copy(content)
 
         surface = pygame.Surface(size.get_tuple(), pygame.SRCALPHA)
         button_rect = pygame.Rect((0, 0), size.get_tuple())
@@ -59,7 +50,7 @@ class RectangleRenderer(ShapeRenderer):
                 style.border_width,
                 style.border_radius
             )
-        if style.bg_image != pygame.Surface((0, 0)):
+        if SurfaceUtils.surfaces_equal(style.bg_image, pygame.Surface((0, 0))):
             surface.blit(
                 style.bg_image,
                 (0, 0),
@@ -83,7 +74,7 @@ class RectangleRenderer(ShapeRenderer):
                 button_rect
             )
         
-        if content.image != pygame.Surface((0, 0)):
+        if SurfaceUtils.surfaces_equal(content.image, pygame.Surface((0, 0))):
             if content.image_position.surface_aligner is not None:
                 content.image_position.surface_aligner.child_size = Size(
                     content.image.get_width(),
