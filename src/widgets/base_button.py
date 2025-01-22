@@ -7,7 +7,7 @@ import pygame
 
 from . import ButtonState
 from ..configs import Style, Content
-from ..geometry import Position, Size
+from ..geometry import Position, Size, AutoSize
 from ..rendering import ShapeRenderer
 
 
@@ -39,7 +39,12 @@ class BaseButton(ABC):
 
         self.position = position
         if self.position.surface_aligner is not None:
-            self.position.surface_aligner.child_size = self.size
+            if isinstance(
+                self.position.surface_aligner.child_size,
+                AutoSize
+            ):
+                self.position.surface_aligner.child_size.set_width = self.size.get_width()
+                self.position.surface_aligner.child_size.set_height = self.size.get_height()
         
         self.renderer = renderer
 
@@ -58,6 +63,9 @@ class BaseButton(ABC):
             self.style,
             self.content
         )
+        if isinstance(self.size, AutoSize):
+            self.size.set_width = self.surface.get_width()
+            self.size.set_height = self.surface.get_height()
     
     @abstractmethod
     def update(

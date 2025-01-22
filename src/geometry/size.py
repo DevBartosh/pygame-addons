@@ -5,11 +5,25 @@ class Size:
     Class containing width and height of a surface.
     """
     def __init__(self, width: int, height: int) -> None:
+        if width < 0:
+            raise ValueError(
+                "Given width was non-positive."
+            )
+        if height < 0:
+            raise ValueError(
+                "Given height was non-positive."
+            )
         self.width = width
         self.height = height
     
+    def get_width(self) -> int:
+        return self.width
+    
+    def get_height(self) -> int:
+        return self.height
+    
     def get_tuple(self) -> tuple[int, int]:
-        return (self.width, self.height)
+        return self.get_width(), self.get_height()
     
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, self.__class__):

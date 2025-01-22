@@ -1,6 +1,6 @@
 from copy import copy
 
-from . import Align, SurfaceAligner
+from . import Align, SurfaceAligner, AutoSize
 from ..exceptions import VariableNotImplementedError
 
 class Position:
@@ -29,28 +29,68 @@ class Position:
         self.width_perc = width_perc
         self.height_perc = height_perc
         self.align = align
-        self.surface_aligner = copy(aligner)
 
-        aligner_used = width_perc != 0 or height_perc != 0 or align != Align.NONE
-        if aligner_used and self.surface_aligner is None:
-            raise VariableNotImplementedError(
-                "Surface aligner was not initialized for positioning with percents or alignment."
+        if aligner is None:
+            self.surface_aligner = None
+            aligner_used = (
+                width_perc != 0 or 
+                height_perc != 0 or 
+                align != Align.NONE
             )
+            if aligner_used:
+                raise VariableNotImplementedError(
+                    "Surface aligner was not given for positioning with percents or alignment."
+                )
+            return
+        
+        if isinstance(aligner.child_size, AutoSize):
+            self.surface_aligner = copy(aligner)
+        else:
+            self.surface_aligner = aligner
 
     def get_x(self) -> int:
-        perc_x = 0
-        align_x = 0
-        if self.surface_aligner is not None:
-            perc_x = int(self.width_perc * self.surface_aligner.parent_size.width)
-            align_x = self.surface_aligner.get_align_pos(self.align)[0]
+        perc_x: int
+        align_x: int
+        aligner_used = (
+            self.width_perc != 0 or 
+            self.height_perc != 0 or 
+            self.align != Align.NONE
+        )
+        if self.surface_aligner is None:
+            if aligner_used:
+                raise VariableNotImplementedError(
+                    "Surface aligner was not given for positioning with percents or alignment."
+                )
+            return self.x
+        perc_x = int(
+            self.width_perc *
+            self.surface_aligner.parent_size.get_width()
+        )
+        align_x = self.surface_aligner.get_align_pos(self.align)[0]
+        
         return self.x + perc_x + align_x
 
     def get_y(self) -> int:
-        perc_y = 0
-        align_y = 0
-        if self.surface_aligner is not None:
-            perc_y = int(self.height_perc * self.surface_aligner.parent_size.height)
-            align_y = self.surface_aligner.get_align_pos(self.align)[1]
+        perc_y: int
+        align_y: int
+        aligner_used = (
+            self.width_perc != 0 or 
+            self.height_perc != 0 or 
+            self.align != Align.NONE
+        )
+        if self.surface_aligner is None:
+            if aligner_used:
+                raise VariableNotImplementedError(
+                    "Surface aligner was not given for positioning with percents or alignment."
+                )
+            return self.y
+        
+        perc_y = int(
+            self.height_perc *
+            self.surface_aligner.parent_size.get_height()
+        )
+        align_y = self.surface_aligner.get_align_pos(self.align)[1]
+
         return self.y + perc_y + align_y
     
     def get_tuple(self) -> tuple[int, int]:
