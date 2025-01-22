@@ -7,11 +7,11 @@ class Size:
     def __init__(self, width: int, height: int) -> None:
         if width < 0:
             raise ValueError(
-                "Given width was non-positive."
+                "Given width was not positive."
             )
         if height < 0:
             raise ValueError(
-                "Given height was non-positive."
+                "Given height was not positive."
             )
         self.width = width
         self.height = height
