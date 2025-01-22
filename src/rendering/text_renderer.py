@@ -4,7 +4,7 @@ import pygame
 
 from ..utils import FontUtils
 from ..configs import TextFormat, Justify
-from ..geometry import SurfaceAligner, Size, Align
+from ..geometry import SurfaceAligner, Size, Align, AutoSize
 
 class TextRenderer:
     DEFAULT_TEXT_FORMAT = TextFormat(name="calibri", size=20)
@@ -41,13 +41,16 @@ class TextRenderer:
         line_width: int = 0
         dist_from_left: int = 0
         char_surfaces: list[pygame.Surface] = []
+        spacing: int
 
-        for char in text:
+        for index, char in enumerate(text):
             char_surface = self.font.render(char, 1, used_format.color)
             char_surfaces.append(char_surface)
-            line_width += char_surface.get_width()
+            spacing = used_format.letter_spacing
+            if index == len(text) - 1:
+                spacing = 0
+            line_width += char_surface.get_width() + spacing
         
-        line_width += (len(text) - 1) * used_format.letter_spacing
         line_surface = pygame.Surface((line_width, used_format.size), pygame.SRCALPHA)
 
         for index, char_surface in enumerate(char_surfaces):
@@ -90,21 +93,23 @@ class TextRenderer:
         lines: list[str] = text.split("\n")
         dist_from_top: int = 0
         longest_line_width: int = 0
+        text_height: int = 0
         line_surfaces: list[pygame.Surface] = []
         line_aligner: SurfaceAligner
         x_line_pos: int
         align_method: Align
 
-        for line in lines:
+        for index, line in enumerate(lines):
             line_surface = self.render_line(line, used_format)
             line_surfaces.append(line_surface)
             if line_surface.get_width() > longest_line_width:
                 longest_line_width = line_surface.get_width()
 
-        text_height = (
-            used_format.size * len(lines) +
-            used_format.line_spacing * (len(lines) - 1)
-        )
+            spacing = used_format.line_spacing
+            if index == len(lines) - 1:
+                spacing = 0
+            text_height += used_format.size + spacing
+            
         text_surface = pygame.Surface(
             (
                 longest_line_width,
@@ -124,9 +129,9 @@ class TextRenderer:
             align_method = Align.TOP_RIGHT
 
         for index, line_surface in enumerate(line_surfaces):
-            line_aligner.child_size = Size(
-                line_surface.get_width(), line_surface.get_height()
-            )
+            if isinstance(line_aligner.child_size, AutoSize):
+                line_aligner.child_size.set_width = line_surface.get_width()
+                line_aligner.child_size.set_height = line_surface.get_height()
             x_line_pos = line_aligner.get_align_pos(align_method)[0]
 
             spacing = used_format.line_spacing
