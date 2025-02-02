@@ -54,28 +54,41 @@ class Config:
         return new
     
     def __str__(self) -> str:
-        string = f"{self.__class__.__name__} ("
+        convert_func: Callable[[Any], str]
+        values: list[str] = []
+
+        string = f"{self.__class__.__name__}("
         for key, value in self.__dict__.items():
-            string += f"\n\t{key}: {value},"
-        string += "\n)"
+            if isinstance(value, pygame.Surface):
+                convert_func = SurfaceUtils.str_surface
+            else:
+                convert_func = str
+
+            values.append(f"{key}={convert_func(value)}")
+        string += ",".join(values)
+        string += ")"
 
         return string
 
     def __eq__(self, other: object) -> bool:
+        comparing_func: Callable[[Any, Any], bool]
+        
         if not isinstance(other, self.__class__):
             return False
         if self.__dict__.keys() != other.__dict__.keys():
             return False
         
         for key in self.__dict__.keys():
-            comparing_func: Callable[[Any, Any], bool] = lambda x, y: x == y
             self_value = self.__dict__[key]
             other_value = other.__dict__[key]
+
             if not isinstance(other_value, type(self_value)):
                 return False
             
             if isinstance(self_value, pygame.Surface):
                 comparing_func = SurfaceUtils.surfaces_equal
+            else:
+                comparing_func = lambda x, y: x == y
             
             if not comparing_func(self_value, other_value):
                 return False
