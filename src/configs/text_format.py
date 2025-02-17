@@ -7,11 +7,30 @@ from . import Attribute, Config
 from ..color.rgb_colors import BLACK
 
 class Justify(Enum):
+    """
+    Enum representing text justification in widget's text surface.
+    """
     LEFT = auto()
     MIDDLE = auto()
     RIGHT = auto()
 
 class TextFormat(Config):
+    """
+    Class storing text's style data.
+
+    Supported attributes:\n
+    name: type = default
+    - name: str
+    - size: int
+    - color: pygame.Color = BLACK
+    - bold: bool = False
+    - italic: bool = False
+    - underline: bool = False
+    - strikethrough: bool = False
+    - letter_spacing: int = 0
+    - line_spacing: int = 0
+    - justification: Justify = Justify.LEFT
+    """
 
     name: str
     size: int

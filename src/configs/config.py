@@ -10,9 +10,10 @@ from ..utils import SurfaceUtils
 
 class Config:
     """
-    Base class for configurations like `Style` and `Content`.
+    Base class for configurations.
 
-    While making a subclass, define `attributes` list to control possible attributes.
+    While making a subclass, define `attributes` list to control possible parameters.
+    This class supports modifying, comparing with == and representing in string.
     """
     attributes: list[Attribute]
     

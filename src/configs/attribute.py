@@ -2,7 +2,7 @@ from typing import Any
 
 class Attribute:
     """
-    Class representing an attribute in attribute list in `Config` class.
+    Class representing a configuration attribute in attribute list in `Config` class.
     """
     def __init__(
         self,

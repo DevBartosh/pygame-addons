@@ -6,15 +6,16 @@ from ..geometry import Position
 
 class Content(Config):
     """
-    A class made for storing widget's content.
+    Class storing widget's content data.
 
-    Supported attributes:
+    Supported attributes:\n
+    name: type = default
     - text: str
-    - text_position: Position
-    - text_2: str
-    - text_2_position: Position
-    - image: pygame.Surface
-    - image_position: Position
+    - text_position: Position = Position(0, 0)
+    - text_2: str = ""
+    - text_2_position: Position = Position(0, 0)
+    - image: pygame.Surface = pygame.Surface((0, 0))
+    - image_position: Position = Position(0, 0)
     """
     
     text: str
