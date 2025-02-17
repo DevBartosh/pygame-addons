@@ -2,7 +2,7 @@ from . import Size, Align, AutoSize
 
 class SurfaceAligner:
     """
-    Class containing parent surface size and child surface size for centering purposes.
+    Class containing sizes of parent and child surface needed for centering.
     """
     def __init__(self,
         parent_surface_size: Size,

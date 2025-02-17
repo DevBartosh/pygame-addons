@@ -2,7 +2,7 @@ from enum import Enum, auto
 
 class Align(Enum):
     """
-    An enum holding alignment values for Position class.
+    Enum representing alignment on a surface.
     """
     NONE = auto()
     TOP_LEFT = auto()

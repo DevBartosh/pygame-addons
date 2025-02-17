@@ -5,17 +5,17 @@ from ..exceptions import VariableNotImplementedError
 
 class Position:
     """
-    A class containing Position of a widget.
+    A class containing and calculating position of a widget.
 
     This class has multiple ways of handling position.
-    1. x, y - classic integer values.
-    2. width_perc, height_perc - these represent percents of parent surface size (most of the time it is window). 1*
+    1. x, y - integer values.
+    2. width_perc, height_perc - these represent percents of parent surface size. 1*
     3. align - represents basic alignment in parent surface. 2*
 
     1* - parameter needs surface aligner with parent surface size.
     2* - parameter needs surface aligner with both parent and child surface sizes.  
-
     """
+    
     def __init__(self,
         x: int = 0,
         y: int = 0,

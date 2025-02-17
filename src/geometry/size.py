@@ -2,8 +2,11 @@ from typing import Self
 
 class Size:
     """
-    Class containing width and height of a surface.
+    Class containing width and height of a surface.\n
+    If negative values are passed into constructor, an error is raised.
+    This class supports comparing with ==.
     """
+    
     def __init__(self, width: int, height: int) -> None:
         if width < 0:
             raise ValueError(

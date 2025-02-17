@@ -1,6 +1,12 @@
 from ..exceptions import VariableNotImplementedError
 
 class AutoSize:
+    """
+    Class allowing for the use of automatic size setting.\n
+    Pass auto_width and auto_height to constructor to control which attributes
+    of size should or should not be automatically set. If auto_[...] parameter will be true and
+    corresponding value was not set, code will return an error.
+    """
     def __init__(
         self,
         width: int = 0,
