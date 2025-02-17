@@ -8,6 +8,10 @@ from ..configs import Style, Content
 from ..geometry import Size, AutoSize
 
 class RectangleRenderer(ShapeRenderer):
+    """
+    Class generating a rectangular surface based on size, style and content.
+    """
+    
     def __init__(self) -> None:
         super().__init__()
         self.text_1_renderer = TextRenderer()

@@ -7,7 +7,7 @@ from ..configs import Style, Content
 
 class ShapeRenderer(ABC):
     """
-    Base class for widget renderers.
+    Base class for simple widget renderers.
     """
     def __init__(self) -> None:
         self.previous_data_hash: str = ""

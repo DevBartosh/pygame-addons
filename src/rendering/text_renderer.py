@@ -8,6 +8,9 @@ from ..configs import TextFormat, Justify
 from ..geometry import SurfaceAligner, Size, Align, AutoSize
 
 class TextRenderer:
+    """
+    Class generating a text surface based on a given text format.
+    """
     DEFAULT_TEXT_FORMAT = TextFormat(name="calibri", size=20)
 
     def __init__(self) -> None:
