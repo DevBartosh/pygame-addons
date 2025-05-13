@@ -50,6 +50,9 @@ class AutoSize:
     def get_tuple(self) -> tuple[int, int]:
         return self.get_width(), self.get_height()
     
+    def __str__(self) -> str:
+        return f"AutoSize({self.get_width()}, {self.get_height()})"
+    
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, self.__class__):
             return False

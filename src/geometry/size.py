@@ -32,6 +32,9 @@ class Size:
             return False
         return True
     
+    def __str__(self) -> str:
+        return f"Size({self.get_width()}, {self.get_height()})"
+    
     @classmethod
     def from_tuple(cls, size_tuple: tuple[int, int]) -> Self:
         return cls(size_tuple[0], size_tuple[1])
