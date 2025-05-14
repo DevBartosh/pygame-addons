@@ -1,6 +1,7 @@
+from hashlib import sha256
+
 import numpy
 import pygame
-from cryptography.hazmat.primitives.hashes import SHA256, Hash
 
 class SurfaceUtils:
     @staticmethod
@@ -16,8 +17,6 @@ class SurfaceUtils:
     @staticmethod
     def str_surface(surface: pygame.Surface) -> str:
         surface_array = pygame.surfarray.array2d(surface)
-        surface_hash = Hash(SHA256())
-        surface_hash.update(str(surface_array).encode())
-        string = f"<Surface(sha256={hex(int.from_bytes(surface_hash.finalize()))}>"
+        string = f"<Surface(sha256={sha256(str(surface_array).encode()).hexdigest()}>"
 
         return string

@@ -1,4 +1,5 @@
 from copy import copy
+from hashlib import sha256
 
 import pygame
 
@@ -12,12 +13,24 @@ class RectangleRenderer(ShapeRenderer):
         self.text_1_renderer = TextRenderer()
         self.text_2_renderer = TextRenderer()
 
+    def get_data_hash(self, size: Size, style: Style, content: Content) -> str:
+        return sha256(f"{str(size)} {str(style)} {str(content)}".encode()).hexdigest()
+
     def get_surface(
         self,
         size: Size,
         style: Style,
         content: Content
     ) -> pygame.Surface:
+        data_hash: str = self.get_data_hash(size, style, content)
+        if (
+            data_hash == self.previous_data_hash and
+            self.surface is not None
+        ):
+            return self.surface
+        else:
+            self.previous_data_hash = data_hash
+
         text_1_surface: pygame.Surface
         text_2_surface: pygame.Surface
         surface: pygame.Surface
@@ -25,13 +38,6 @@ class RectangleRenderer(ShapeRenderer):
         text_position_child_size: Size | AutoSize
         text_2_position_child_size: Size | AutoSize
         image_position_child_size: Size | AutoSize
-        if (
-            self.size == size and
-            self.style == style and
-            self.content == content and
-            self.surface is not None
-        ):
-            return self.surface
 
         text_1_surface = self.text_1_renderer.render_text(
             content.text,
@@ -86,10 +92,6 @@ class RectangleRenderer(ShapeRenderer):
         surface.blit(text_1_surface, content.text_position.get_tuple())
         surface.blit(text_2_surface, content.text_2_position.get_tuple())
         surface.blit(content.image, content.image_position.get_tuple())
-
-        self.size = copy(size)
-        self.style = copy(style)
-        self.content = copy(content)
 
         self.surface = surface
         return self.surface

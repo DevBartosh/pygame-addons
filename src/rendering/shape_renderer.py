@@ -10,10 +10,8 @@ class ShapeRenderer(ABC):
     Base class for widget renderers.
     """
     def __init__(self) -> None:
-        self.style: Style | None = None
-        self.size: Size | None = None
-        self.content: Content | None = None
-        self.surface: pygame.Surface
+        self.previous_data_hash: str = ""
+        self.surface: pygame.Surface | None = None
     
     @abstractmethod
     def get_surface(
