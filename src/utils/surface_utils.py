@@ -4,6 +4,9 @@ import numpy
 import pygame
 
 class SurfaceUtils:
+    """
+    Class containing additional methods for surfaces.
+    """
     @staticmethod
     def surfaces_equal(
         surface_1: pygame.Surface,

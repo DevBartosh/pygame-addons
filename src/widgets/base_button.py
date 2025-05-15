@@ -12,6 +12,9 @@ from ..rendering import ShapeRenderer
 
 
 class BaseButton(ABC):
+    """
+    Base class for buttons.
+    """
     Callback: TypeAlias = Callable[["BaseButton"], None]
 
     def __init__(

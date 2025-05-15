@@ -6,6 +6,9 @@ from ..geometry import Size, Position
 from ..rendering import ShapeRenderer
 
 class Button(BaseButton):
+    """
+    Button widget with much customizability and many types of callbacks.
+    """
     def __init__(
         self,
         position: Position,

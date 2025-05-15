@@ -4,6 +4,9 @@ pygame.font.init()
 from ..configs import TextFormat
 
 class FontUtils:
+    """
+    Class containing methods for creating fonts.
+    """
     @staticmethod
     def font_from_data(
         name: str,

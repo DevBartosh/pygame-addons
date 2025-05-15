@@ -5,6 +5,9 @@ from ..geometry import Size, Position, AutoSize
 from ..rendering import ShapeRenderer
 
 class TextBox:
+    """
+    Text widget with customizability.
+    """
     def __init__(
         self,
         position: Position,
