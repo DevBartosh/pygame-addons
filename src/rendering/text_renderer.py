@@ -3,7 +3,7 @@ from hashlib import sha256
 
 import pygame
 
-from ..utils import FontUtils, SurfaceUtils
+from ..utils.font import font_from_format
 from ..configs import TextFormat, Justify
 from ..geometry import SurfaceAligner, Size, Align, AutoSize
 
@@ -25,7 +25,7 @@ class TextRenderer:
         text: str,
         text_format: TextFormat
     ) -> pygame.Surface:
-        self.font = FontUtils.font_from_format(text_format)
+        self.font = font_from_format(text_format)
 
         line_surface: pygame.Surface
         line_width: int = 0

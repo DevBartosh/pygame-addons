@@ -6,7 +6,8 @@ import pygame
 
 from . import Attribute
 from ..exceptions import VariableNotImplementedError
-from ..utils import SurfaceUtils
+from ..utils.surface import surfaces_equal
+from ..utils.represent import get_repr_surface
 
 class Config:
     """
@@ -61,7 +62,7 @@ class Config:
         string = f"{self.__class__.__name__}("
         for key, value in self.__dict__.items():
             if isinstance(value, pygame.Surface):
-                convert_func = SurfaceUtils.str_surface
+                convert_func = get_repr_surface
             else:
                 convert_func = str
 
@@ -87,7 +88,7 @@ class Config:
                 return False
             
             if isinstance(self_value, pygame.Surface):
-                comparing_func = SurfaceUtils.surfaces_equal
+                comparing_func = surfaces_equal
             else:
                 comparing_func = lambda x, y: x == y
             
