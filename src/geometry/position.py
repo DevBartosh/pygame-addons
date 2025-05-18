@@ -1,4 +1,5 @@
 from copy import copy
+from typing import Self
 
 from . import Align, SurfaceAligner, AutoSize
 from ..exceptions import VariableNotImplementedError
@@ -130,12 +131,15 @@ class Position:
         self._align = value
 
     @property
-    def tuple(self) -> tuple[int, int]:
-        return self.x, self.y
-    
-    @property
     def surface_aligner(self) -> SurfaceAligner | None:
         return self._surface_aligner
+    
+    def to_tuple(self) -> tuple[int, int]:
+        return self.x, self.y
+    
+    @classmethod
+    def from_tuple(cls, pos_tuple: tuple[int, int]) -> Self:
+        return cls(*pos_tuple)
     
     def _calculate_x_and_y(self) -> None:
         percent_x: int
@@ -161,8 +165,8 @@ class Position:
         align_values = self.surface_aligner.get_align_pos(self.align)
         align_x = align_values[0]
         align_y = align_values[1]
-        percent_x = int(self.width_percent * self.surface_aligner.parent_size.get_width())
-        percent_y = int(self.height_percent * self.surface_aligner.parent_size.get_height())
+        percent_x = int(self.width_percent * self.surface_aligner.parent_size.width)
+        percent_y = int(self.height_percent * self.surface_aligner.parent_size.height)
 
         self._total_x = self.raw_x + percent_x + align_x
         self._total_y = self.raw_y + percent_y + align_y

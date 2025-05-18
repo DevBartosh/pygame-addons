@@ -62,8 +62,8 @@ class Button(BaseButton):
 
         parent_surface.blit(
             self.surface,
-            self.position.tuple,
-            pygame.Rect((0, 0), self.size.get_tuple())
+            self.position.to_tuple(),
+            pygame.Rect((0, 0), self.size.to_tuple())
         )
 
         surface_mask: pygame.Mask = pygame.mask.from_surface(self.surface)
