@@ -93,9 +93,9 @@ class RectangleRenderer(ShapeRenderer):
                 style.border_width,
                 style.border_radius
             )
-        surface.blit(text_1_surface, content.text_position.get_tuple())
-        surface.blit(text_2_surface, content.text_2_position.get_tuple())
-        surface.blit(content.image, content.image_position.get_tuple())
+        surface.blit(text_1_surface, content.text_position.tuple)
+        surface.blit(text_2_surface, content.text_2_position.tuple)
+        surface.blit(content.image, content.image_position.tuple)
 
         self.surface = surface
         return self.surface

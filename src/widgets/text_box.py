@@ -43,4 +43,4 @@ class TextBox:
             self.size.set_width = self.surface.get_width()
             self.size.set_height = self.surface.get_height()
 
-        parent_surface.blit(surface, self.position.get_tuple())
+        parent_surface.blit(surface, self.position.tuple)
