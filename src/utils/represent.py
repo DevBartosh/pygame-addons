@@ -29,11 +29,7 @@ def get_repr(obj: Any) -> str:
     return converting_func(obj)
 
 def get_repr_object(obj: Any) -> str:
-    repr_string = f"{obj.__class__.__name__}("
-    repr_string += ", ".join(map(lambda kvp: f"{kvp[0]}={get_repr(kvp[1])}", obj.__dict__.items()))
-    repr_string += ")"
-
-    return repr_string
+    return f"{obj.__class__.__name__}" + get_repr_dict_object_format(obj.__dict__)
 
 def get_repr_enum(obj: Enum):
     return f"{obj.__class__.__name__}.{obj.name}"
@@ -42,20 +38,24 @@ def get_repr_surface(surface: pygame.Surface) -> str:
     surface_bytes = pygame.image.tobytes(surface, "RGBA")
     return f"Surface({hashlib.sha256(surface_bytes).hexdigest()})"
 
-def get_repr_dict(obj: dict) -> str:
-    repr_string = "{"
-    repr_string += ", ".join(map(lambda kvp: f"{kvp[0]}: {get_repr(kvp[1])}", obj.items()))
-    repr_string += "}"
+def create_collection_repr(start: str, end: str, element_link: str) -> Callable[[Collection], str]:
+    def repr_func(obj: Collection) -> str:
+        return start + element_link.join(map(get_repr, obj)) + end
+    return repr_func
 
-    return repr_string
-
-def create_collection_repr(start: str, end: str, link: str) -> Callable[[Collection], str]:
-    def repr_func(obj: Collection):
-        return start + link.join(map(get_repr, obj)) + end
+def create_dict_repr(start: str, end: str, element_link: str, key_value_link: str) -> Callable[[dict], str]:
+    def repr_func(obj: dict) -> str:
+        pairs: list[str] = [
+            f"{key}{key_value_link}{value}"
+            for key, value in obj.items()
+        ]
+        return start + element_link.join(pairs) + end
     return repr_func
 
 get_repr_set: Callable[[set | frozenset], str] = create_collection_repr("{", "}", ", ")
 get_repr_list: Callable[[list], str] = create_collection_repr("[", "]", ", ")
 get_repr_tuple: Callable[[tuple], str] = create_collection_repr("(", ")", ", ")
+get_repr_dict: Callable[[dict], str] = create_dict_repr("{", "}", ", ", ": ")
+get_repr_dict_object_format: Callable[[dict], str] = create_dict_repr("(", ")", ", ", "=")
 
 
