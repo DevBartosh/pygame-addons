@@ -50,9 +50,9 @@ class RectangleRenderer(ShapeRenderer):
         if content.text_position.surface_aligner is not None:
             text_position_child_size = content.text_position.surface_aligner.child_size
             if isinstance(text_position_child_size, AutoSize):
-                if text_position_child_size.auto_width:
+                if text_position_child_size.width_auto_setting:
                     text_position_child_size.set_width = text_1_surface.get_width()
-                if text_position_child_size.auto_height:
+                if text_position_child_size.height_auto_setting:
                     text_position_child_size.set_height = text_1_surface.get_height()
         
         text_2_surface = self.text_2_renderer.render_text(
@@ -62,17 +62,17 @@ class RectangleRenderer(ShapeRenderer):
         if content.text_2_position.surface_aligner is not None:
             text_2_position_child_size = content.text_2_position.surface_aligner.child_size
             if isinstance(text_2_position_child_size, AutoSize):
-                if text_2_position_child_size.auto_width:
+                if text_2_position_child_size.width_auto_setting:
                     text_2_position_child_size.set_width = text_2_surface.get_width()
-                if text_2_position_child_size.auto_height:
+                if text_2_position_child_size.height_auto_setting:
                     text_2_position_child_size.set_height = text_2_surface.get_height()
 
         if content.image_position.surface_aligner is not None:
             image_position_child_size = content.image_position.surface_aligner.child_size
             if isinstance(image_position_child_size, AutoSize):
-                if image_position_child_size.auto_width:
+                if image_position_child_size.width_auto_setting:
                     image_position_child_size.set_width = content.image.get_width()
-                if image_position_child_size.auto_height:
+                if image_position_child_size.height_auto_setting:
                     image_position_child_size.set_height = content.image.get_height()
 
         surface = pygame.Surface(size.to_tuple(), pygame.SRCALPHA)
