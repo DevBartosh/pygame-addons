@@ -62,14 +62,14 @@ class Button(BaseButton):
 
         parent_surface.blit(
             self.surface,
-            self.position.get_tuple(),
-            pygame.Rect((0, 0), self.size.get_tuple())
+            self.position.to_tuple(),
+            pygame.Rect((0, 0), self.size.to_tuple())
         )
 
         surface_mask: pygame.Mask = pygame.mask.from_surface(self.surface)
         offset_pos = (
-            mouse_pos[0] - self.position.get_x(),
-            mouse_pos[1] - self.position.get_y()
+            mouse_pos[0] - self.position.x,
+            mouse_pos[1] - self.position.y
         )
 
         if self.disabled:

@@ -46,8 +46,8 @@ class BaseButton(ABC):
                 self.position.surface_aligner.child_size,
                 AutoSize
             ):
-                self.position.surface_aligner.child_size.set_width = self.size.get_width()
-                self.position.surface_aligner.child_size.set_height = self.size.get_height()
+                self.position.surface_aligner.child_size.set_width = self.size.width
+                self.position.surface_aligner.child_size.set_height = self.size.height
         
         self.renderer = renderer
 

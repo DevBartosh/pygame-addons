@@ -1,5 +1,7 @@
 from typing import Self
 
+from ..utils.represent import get_repr
+
 class Size:
     """
     Class containing width and height of a surface.\n
@@ -8,36 +10,42 @@ class Size:
     """
     
     def __init__(self, width: int, height: int) -> None:
-        if width < 0:
-            raise ValueError(
-                "Given width was not positive."
-            )
-        if height < 0:
-            raise ValueError(
-                "Given height was not positive."
-            )
-        self.width = width
-        self.height = height
+        self._width = width
+        self._height = height
     
-    def get_width(self) -> int:
-        return self.width
+    @property
+    def width(self) -> int:
+        return self._width
     
-    def get_height(self) -> int:
-        return self.height
+    @width.setter
+    def width(self, value: int) -> None:
+        if not isinstance(value, int):
+            raise TypeError(f"width must be of type int, got {type(value).__name__}.")
+        if value < 0:
+            raise ValueError(f"width cannot be less than 0.")
+        self._width = value
     
-    def get_tuple(self) -> tuple[int, int]:
-        return self.get_width(), self.get_height()
+    @property
+    def height(self) -> int:
+        return self._height
     
-    def __eq__(self, other: object) -> bool:
-        if not isinstance(other, self.__class__):
-            return False
-        if self.__dict__ != other.__dict__:
-            return False
-        return True
+    @height.setter
+    def height(self, value: int) -> None:
+        if not isinstance(value, int):
+            raise TypeError(f"height must be of type int, got {type(value).__name__}.")
+        if value < 0:
+            raise ValueError(f"height cannot be less than 0.")
+        self._height = value
     
-    def __str__(self) -> str:
-        return f"Size({self.get_width()}, {self.get_height()})"
+    def to_tuple(self) -> tuple[int, int]:
+        return self.width, self.height
     
     @classmethod
     def from_tuple(cls, size_tuple: tuple[int, int]) -> Self:
-        return cls(size_tuple[0], size_tuple[1])
+        return cls(*size_tuple)
+    
+    def __eq__(self, other: object) -> bool:
+        return get_repr(self) == get_repr(other)
+    
+    def __str__(self) -> str:
+        return get_repr(self)

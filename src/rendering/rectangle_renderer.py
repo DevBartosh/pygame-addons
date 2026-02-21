@@ -75,8 +75,8 @@ class RectangleRenderer(ShapeRenderer):
                 if image_position_child_size.auto_height:
                     image_position_child_size.set_height = content.image.get_height()
 
-        surface = pygame.Surface(size.get_tuple(), pygame.SRCALPHA)
-        button_rect = pygame.Rect((0, 0), size.get_tuple())
+        surface = pygame.Surface(size.to_tuple(), pygame.SRCALPHA)
+        button_rect = pygame.Rect((0, 0), size.to_tuple())
 
         pygame.draw.rect(
             surface,
@@ -93,9 +93,9 @@ class RectangleRenderer(ShapeRenderer):
                 style.border_width,
                 style.border_radius
             )
-        surface.blit(text_1_surface, content.text_position.get_tuple())
-        surface.blit(text_2_surface, content.text_2_position.get_tuple())
-        surface.blit(content.image, content.image_position.get_tuple())
+        surface.blit(text_1_surface, content.text_position.to_tuple())
+        surface.blit(text_2_surface, content.text_2_position.to_tuple())
+        surface.blit(content.image, content.image_position.to_tuple())
 
         self.surface = surface
         return self.surface
